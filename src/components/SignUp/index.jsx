@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { validateAll } from 'indicative'
-import { validate } from '@babel/types';
+import Axios from 'axios'
+import config from '../../config'
 
 class SignUp extends React.Component {
   constructor() {
@@ -41,7 +42,23 @@ class SignUp extends React.Component {
 
     validateAll(data, rules, messages)
       .then(() => {
-        // user registration
+        
+        Axios.post(`${config.apiUrlL}/auth/register`, {
+          name: this.state.name,
+          email: this.state.email,
+          password: this.state.password
+        })
+          .then(response => {
+            console.log(response)
+          })
+          .catch(errors => {
+            const formattedErrors = {}
+            formattedErrors['email'] = errors.response.data['email'][0]
+            this.setState({
+              errors: formattedErrors
+            })
+          })
+        
       })
       .catch((errors) => {
         // show errors to the user
