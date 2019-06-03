@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Link } from 'react-router-dom'
+import { BrowserRouter, Route, withRouter } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker'
 
 import Welcome from './components/Welcome'
@@ -11,17 +11,27 @@ import Login from './components/Login'
 import SingleArticle from './components/SingleArticle'
 import SignUp from './components/SignUp'
 
+const Main = withRouter(({ location }) => (
+  <div>
+    {
+      location.pathname !== '/login' && location.pathname !== '/signup' &&
+      <Navbar />
+    }
+    <Route exact={true} path="/" component={Welcome} />
+    <Route exact path="/login" component={Login} />
+    <Route exact path="/signup" component={SignUp} />
+    <Route exact path="/article/:slug" component={SingleArticle} />
+    <Route exact path="/articles/create" component={CreateArticle} />
+    {
+      location.pathname !== '/login' && location.pathname !== '/signup' &&
+      <Footer />
+    }
+  </div>
+))
+
 ReactDOM.render(
   <BrowserRouter>
-    <div>
-      <Navbar />
-      <Route exact={true} path="/" component={Welcome} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/signup" component={SignUp} />
-      <Route exact path="/article/:slug" component={SingleArticle} />
-      <Route exact path="/articles/create" component={CreateArticle} />
-      <Footer />
-    </div>
+    <Main />
   </BrowserRouter>,
   document.getElementById('root')
 )
