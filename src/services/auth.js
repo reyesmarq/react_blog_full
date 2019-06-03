@@ -22,31 +22,29 @@ export default class AuthService {
     try {
       
       await validateAll(data, rules, messages)
-    
-      try {
-        
-        const response = await Axios.post(`${config.apiUrlL}/auth/register`, {
-          name: data.name,
-          email: data.email,
-          password: data.password
-        })
 
-        return response.data.data
-        
-      } catch (errors) {
-        
-        const formattedErrors = {}
-        
-        return formattedErrors
-        
-      }
+      const response = await Axios.post(`${config.apiUrlL}/auth/register`, {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      })
+    
+      return response.data.data
       
     } catch (errors) {
       
       // show errors to the user
       const formattedErrors = {}
+
+      if (errors.state === 422) {
+        formattedErrors['email'] = errors.response.data['email'][0]
+
+        return Promise.reject(formattedErrors)
+      }
       
-      return formattedErrors
+      errors.forEach(error => formattedErrors[error.field] = error.message)
+
+      return Promise.reject(formattedErrors)
       
     }
     
