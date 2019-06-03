@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { validateAll } from 'indicative'
+import { validate } from '@babel/types';
 
 class SignUp extends React.Component {
   constructor() {
@@ -18,6 +20,26 @@ class SignUp extends React.Component {
       [event.target.name]: event.target.value
     })
   }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    
+    // validating data
+    const data = this.state
+    const rules = {
+      name: 'required|string',
+      email: 'required|email',
+      password: 'required|string|min:6'
+    }
+
+    validateAll(data, rules)
+      .then(() => {
+        // user registration
+      })
+      .catch((err) => {
+        // show errors to the user
+      })
+  }
   
   render() {
     return (
@@ -26,7 +48,7 @@ class SignUp extends React.Component {
           <h5 className="text-uppercase text-center">Register</h5>
           <br />
           <br />
-          <form className="form-type-material">
+          <form className="form-type-material" onSubmit={this.handleSubmit}>
             <div className="form-group">
               <input type="text" name="name" onChange={this.handleInputChange} className="form-control" placeholder="Username" />
             </div>
