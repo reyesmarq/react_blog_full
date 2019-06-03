@@ -23,7 +23,7 @@ class SignUp extends React.Component {
     })
   }
 
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     event.preventDefault()
     
     // validating data
@@ -40,36 +40,43 @@ class SignUp extends React.Component {
       'password.confirmed': 'The password confirmation does not match'
     }
 
-    validateAll(data, rules, messages)
-      .then(() => {
+    try {
+      
+      await validateAll(data, rules, messages)
+    
+      try {
         
-        Axios.post(`${config.apiUrlL}/auth/register`, {
+        const response = await Axios.post(`${config.apiUrlL}/auth/register`, {
           name: this.state.name,
           email: this.state.email,
           password: this.state.password
         })
-          .then(response => {
-            localStorage.setItem('user', JSON.stringify(response.data.data))
-            this.props.setAuthUser(response.data.data)
-            this.props.history.push('/')
-          })
-          .catch(errors => {
-            const formattedErrors = {}
-            formattedErrors['email'] = errors.response.data['email'][0]
-            this.setState({
-              errors: formattedErrors
-            })
-          })
+
+        localStorage.setItem('user', JSON.stringify(response.data.data))
+        this.props.setAuthUser(response.data.data)
+        this.props.history.push('/')
         
-      })
-      .catch((errors) => {
-        // show errors to the user
+      } catch (errors) {
+        
         const formattedErrors = {}
-        errors.forEach(error => formattedErrors[error.field] = error.message)
+        formattedErrors['email'] = errors.response.data['email'][0]
         this.setState({
           errors: formattedErrors
         })
+        
+      }
+      
+    } catch (errors) {
+      
+      // show errors to the user
+      const formattedErrors = {}
+      errors.forEach(error => formattedErrors[error.field] = error.message)
+      this.setState({
+        errors: formattedErrors
       })
+      
+    }
+
   }
   
   render() {
