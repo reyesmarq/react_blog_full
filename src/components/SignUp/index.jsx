@@ -33,7 +33,13 @@ class SignUp extends React.Component {
       password: 'required|string|min:6|confirmed'
     }
 
-    validateAll(data, rules)
+    const messages = {
+      required: 'This {{ field }} is required',
+      'email.email': 'invalid email',
+      'password.confirmed': 'The password confirmation does not match'
+    }
+
+    validateAll(data, rules, messages)
       .then(() => {
         // user registration
       })
