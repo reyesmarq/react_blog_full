@@ -11,6 +11,8 @@ import Login from './components/Login'
 import SingleArticle from './components/SingleArticle'
 import SignUp from './components/SignUp'
 
+import AuthService from './services/auth'
+
 class App extends React.Component {
   constructor() {
     super()
@@ -47,7 +49,11 @@ class App extends React.Component {
         }
         <Route exact={true} path="/" component={Welcome} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" render={(props) => <SignUp {...props} setAuthUser={this.setAuthUser} />} />
+        <Route exact path="/signup" render={
+          (props) => <SignUp {...props} 
+            registerUser={this.props.authService.registerUser}
+            setAuthUser={this.setAuthUser} />
+        }/>
         <Route exact path="/article/:slug" component={SingleArticle} />
         <Route exact path="/articles/create" component={CreateArticle} />
         {
@@ -60,7 +66,7 @@ class App extends React.Component {
 }
 
 const Main = withRouter((props) => (
-  <App {...props} />
+  <App authService={ new AuthService() } {...props} />
 ))
 
 ReactDOM.render(
