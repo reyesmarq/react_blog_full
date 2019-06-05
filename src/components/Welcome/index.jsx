@@ -1,34 +1,34 @@
 import React from 'react'
-import Article from '../Article'
-import Banner from '../Banner'
+
+import Banner from './../Banner'
+import Article from './../Article'
+
 import { Link } from 'react-router-dom'
 
-
-const Welcome = () => (
+const Welcome = () => ((
   <div>
 
-    <Banner 
+    <Banner
       backgroundImage="url(assets/img/bg-gift.jpg)"
       title="Latest Blog Posts"
       subTitle="Read and get updated on how we progress."
     />
-    
+
     <main className="main-content bg-gray">
       <div className="row">
-        <div className="col12 col-lg-6 offset-lg-3">
+        <div className="col-12 col-lg-6 offset-lg-3">
           <Article />
-          <hr/>
+          <hr />
           <Article />
-          <hr/>
+          <hr />
           <Article />
-          <hr/>
+          <hr />
           <Article />
           <nav className="flexbox mt-50 mb-50">
-            <Link className="btn btn-white disabled" to="/">
-              <i className="ti-arrow-left fs-9 mr-4" />
-              Newer
+            <Link className="btn btn-white disabled">
+              <i className="ti-arrow-left fs-9 mr-4" /> Newer
             </Link>
-            <Link className="btn btn-white" to="#">Older
+            <Link className="btn btn-white" href="#">Older
               <i className="ti-arrow-right fs-9 ml-4" />
             </Link>
           </nav>
@@ -36,6 +36,6 @@ const Welcome = () => (
       </div>
     </main>
   </div>
-)
+))
 
 export default Welcome

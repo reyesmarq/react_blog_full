@@ -1,7 +1,8 @@
-import React from "react"
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ authUser }) => (
+const Navbar = ({ authUser }) => ((
   <nav className="topbar topbar-inverse topbar-expand-md topbar-sticky">
     <div className="container">
       <div className="topbar-left">
@@ -14,18 +15,18 @@ const Navbar = ({ authUser }) => (
       <div className="topbar-right">
         <ul className="topbar-nav nav">
           <li className="nav-item">
-            <a className="nav-link" href="index.html">Home</a>
+            <Link className="nav-link" to="/">Home</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/articles/create">Write new article</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="#">Hey {authUser && authUser.user.name}!
+            <Link className="nav-link" to="/">Hey {authUser && authUser.user.name}!
               <i className="fa fa-caret-down" />
             </Link>
             <div className="nav-submenu">
-              <a className="nav-link" href="page-login.html">My articles</a>
-              <a className="nav-link" href="#">Logout</a>
+              <Link className="nav-link" to="/">My articles</Link>
+              <Link className="nav-link" to>Logout</Link>
             </div>
           </li>
           {
@@ -44,6 +45,18 @@ const Navbar = ({ authUser }) => (
       </div>
     </div>
   </nav>
-)
+))
+
+Navbar.propTypes = {
+  authUser: PropTypes.shape({
+    user: PropTypes.shape({
+      name: PropTypes.string,
+    }).isRequired,
+  }),
+}
+
+Navbar.defaultProps = {
+  authUser: null,
+}
 
 export default Navbar
