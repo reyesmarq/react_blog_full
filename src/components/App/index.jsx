@@ -45,7 +45,17 @@ class App extends React.Component {
           <Navbar authUser={this.state.authUser} />
         }
         <Route exact={true} path="/" component={Welcome} />
-        <Route exact path="/login" component={Login} />
+        <Route
+          exact
+          path="/login"
+          render={
+            props => (<Login
+              {...props}
+              setAuthUser={this.setAuthUser}
+              loginUser={this.props.authService.loginUser}
+            />)
+          }
+        />
         <Route
           exact
           path="/signup"

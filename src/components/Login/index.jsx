@@ -7,7 +7,8 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      errors: {}
     }
   }
   
@@ -17,10 +18,17 @@ class Login extends React.Component {
     })
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault()
 
-    console.log(this.state)
+    try {
+      const user = await this.props.loginUser(this.state)
+      localStorage.setItem('user', JSON.stringify(user))
+      this.props.setAuthUser(user)
+      this.props.history.push('/');
+    } catch (errors) {
+      this.setState({ errors })
+    }
   }
 
   render() {

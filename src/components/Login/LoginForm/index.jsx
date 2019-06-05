@@ -12,6 +12,7 @@ const LoginForm = ({ handleInputChange, handleSubmit }) => ((
         <div className="form-group">
           <input
             type="text"
+            name="email"
             className="form-control"
             placeholder="Username"
             onChange={handleInputChange}
@@ -20,6 +21,7 @@ const LoginForm = ({ handleInputChange, handleSubmit }) => ((
         <div className="form-group">
           <input
             type="password"
+            name="password"
             className="form-control"
             placeholder="Password"
             onChange={handleInputChange}
