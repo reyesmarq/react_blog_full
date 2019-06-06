@@ -36,7 +36,7 @@ export default class AuthService {
       // show errors to the user
       const formattedErrors = {}
 
-      if (errors.response.status === 422) {
+      if (errors.response && errors.response.status === 422) {
         formattedErrors['email'] = errors.response.data['email'][0]
 
         return Promise.reject(formattedErrors)
@@ -78,7 +78,7 @@ export default class AuthService {
       // show errors to the user
       const formattedErrors = {}
 
-      if (errors.response.status === 401) {
+      if (errors.response && errors.response.status === 401) {
         formattedErrors['email'] = 'Invalid credentials'
 
         return Promise.reject(formattedErrors)
