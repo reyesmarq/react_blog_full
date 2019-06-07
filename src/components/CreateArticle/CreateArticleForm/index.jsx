@@ -2,7 +2,7 @@ import React from 'react'
 import Banner from '../../Banner'
 import PropTypes from 'prop-types'
 
-const CreateArticleForm = ({ handleInputChange }) => ((
+const CreateArticleForm = ({ handleInputChange, categories }) => ((
   <div>
     <Banner
       backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
@@ -35,14 +35,16 @@ const CreateArticleForm = ({ handleInputChange }) => ((
                   </div>
                   <div className="form-group col-12 col-md-6">
                     <select
-                      name="channel"
-                      id
+                      name="category"
                       className="form-control form-control-lg"
                       onChange={handleInputChange}
                     >
                       <option value>Select category</option>
-                      <option value>Vuejs</option>
-                      <option value>Reactjs</option>
+                      {
+                        categories.map(category => 
+                          <option key={category.id} value={category.id}>{category.name}</option>  
+                        )
+                      }
                     </select>
                   </div>
                 </div>

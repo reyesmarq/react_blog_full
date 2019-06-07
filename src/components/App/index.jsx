@@ -71,7 +71,18 @@ class App extends React.Component {
           }
         />
         <Route exact path="/article/:slug" component={SingleArticle} />
-        <Route exact path="/articles/create" component={CreateArticle} />
+        <Route
+          exact
+          path="/articles/create"
+          render={
+            props => (
+              <CreateArticle 
+                {...props}
+                getArticleCategories={this.props.articlesService.getArticleCategories}
+              />
+            )
+          } 
+        />
         {
           location.pathname !== '/login' && location.pathname !== '/signup' &&
           <Footer />
