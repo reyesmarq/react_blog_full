@@ -2,7 +2,7 @@ import React from 'react'
 import Banner from '../../Banner'
 import PropTypes from 'prop-types'
 
-const CreateArticleForm = ({ handleInputChange, categories, handleSubmit }) => ((
+const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors }) => ((
   <div>
     <Banner
       backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
@@ -14,6 +14,12 @@ const CreateArticleForm = ({ handleInputChange, categories, handleSubmit }) => (
         <div className="container">
           <div className="row">
             <div className="col-12 col-lg-12">
+              <ul className="list-group">
+              {
+                // errors.map((error, index) => <li key={index} className="list-group-item text-danger">{error.message}</li>)
+                errors.map((error) => <li key={error.message} className="list-group-item text-danger">{error.message}</li>)
+              }
+              </ul>
               <form className="p-30 bg-gray rounded" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="form-group col-md-12 my-5">
