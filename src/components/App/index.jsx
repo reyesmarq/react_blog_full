@@ -79,6 +79,7 @@ class App extends React.Component {
               <CreateArticle 
                 {...props}
                 getArticleCategories={this.props.articlesService.getArticleCategories}
+                createArticle={this.props.articlesService.createArticle}
               />
             )
           } 

@@ -2,7 +2,7 @@ import React from 'react'
 import Banner from '../../Banner'
 import PropTypes from 'prop-types'
 
-const CreateArticleForm = ({ handleInputChange, categories }) => ((
+const CreateArticleForm = ({ handleInputChange, categories, handleSubmit }) => ((
   <div>
     <Banner
       backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
@@ -14,7 +14,7 @@ const CreateArticleForm = ({ handleInputChange, categories }) => ((
         <div className="container">
           <div className="row">
             <div className="col-12 col-lg-12">
-              <form className="p-30 bg-gray rounded" method="POST" data-form="mailer">
+              <form className="p-30 bg-gray rounded" onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="form-group col-md-12 my-5">
                     <input
