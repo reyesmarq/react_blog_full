@@ -3,7 +3,7 @@ import Banner from '../../Banner'
 import Article from '../../Article'
 import { Link } from 'react-router-dom'
 
-const Articles = ({ articles }) => ((
+const Articles = ({ articles, handlePagination, nextUrl, prevUrl }) => ((
   <div>
 
     <Banner
@@ -25,12 +25,15 @@ const Articles = ({ articles }) => ((
           }
 
           <nav className="flexbox mt-50 mb-50">
-            <Link className="btn btn-white disabled" to="#">
-              <i className="ti-arrow-left fs-9 mr-4" /> Newer
+
+            <Link className={`btn btn-white ${prevUrl ? '' : 'disabled'}`} to="#" onClick={() => handlePagination(prevUrl)}>
+              <i className="ti-arrow-left fs-9 ml-4" /> Previous Page
             </Link>
-            <Link className="btn btn-white" to="#">Older
-              <i className="ti-arrow-right fs-9 ml-4" />
+
+            <Link className={`btn btn-white ${nextUrl ? '' : 'disabled'}`} to="#" onClick={() => handlePagination(nextUrl)}> 
+              Next Page <i className="ti-arrow-right fs-9 mr-4" />
             </Link>
+            
           </nav>
         </div>
       </div>
