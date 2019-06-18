@@ -15,7 +15,8 @@ class App extends React.Component {
     super()
 
     this.state = {
-      authUser: null
+      authUser: null,
+      articles: []
     }
   }
 
@@ -27,6 +28,10 @@ class App extends React.Component {
         authUser: JSON.parse(user)
       })
     }
+  }
+
+  setArticles = (articles) => {
+    this.setState({ articles })
   }
 
   setAuthUser = (authUser) => {
@@ -55,6 +60,7 @@ class App extends React.Component {
               <Welcome
                 {...props}
                 getArticles={this.props.articlesService.getArticles}
+                setArticles={this.setArticles}
               />
             )
           }
@@ -63,22 +69,26 @@ class App extends React.Component {
           exact
           path="/login"
           render={
-            props => (<Login
-              {...props}
-              setAuthUser={this.setAuthUser}
-              loginUser={this.props.authService.loginUser}
-            />)
+            props => (
+              <Login
+                {...props}
+                setAuthUser={this.setAuthUser}
+                loginUser={this.props.authService.loginUser}
+              />
+            )
           }
         />
         <Route
           exact
           path="/signup"
           render={
-            props => (<SignUp 
-              {...props} 
-              registerUser={this.props.authService.registerUser}
-              setAuthUser={this.setAuthUser}
-            />)
+            props => (
+              <SignUp 
+                {...props} 
+                registerUser={this.props.authService.registerUser}
+                setAuthUser={this.setAuthUser}
+              />
+            )
           }
         />
         <Route
@@ -89,6 +99,7 @@ class App extends React.Component {
               <SingleArticle
                 {...props}
                 getArticle={this.props.articlesService.getArticle}
+                articles={this.state.articles}
               />
             )
           }

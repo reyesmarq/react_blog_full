@@ -16,7 +16,14 @@ export default class ArticlesService {
   }
   
   async getArticleCategories() {
+    const categories = JSON.parse(localStorage.getItem('categories'))
+    
+    if (categories) {
+      return categories
+    }
+      
     const response = await Axios.get(`${config.apiUrlL}/categories`)
+    localStorage.setItem('categories', JSON.stringify(response.data.categories))
 
     return response.data.categories
   }
