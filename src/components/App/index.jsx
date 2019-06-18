@@ -81,7 +81,18 @@ class App extends React.Component {
             />)
           }
         />
-        <Route exact path="/article/:slug" component={SingleArticle} />
+        <Route
+          exact
+          path="/article/:slug"
+          render={
+            props => (
+              <SingleArticle
+                {...props}
+                getArticle={this.props.articlesService.getArticle}
+              />
+            )
+          }
+        />
         <Route
           exact
           path="/articles/create"
