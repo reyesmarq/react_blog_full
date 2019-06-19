@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import RedirectIfAuth from '../RedirectIfAuth'
 import Auth from '../Auth'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
@@ -66,32 +67,27 @@ class App extends React.Component {
             )
           }
         />
-        <Route
-          exact
+
+        <RedirectIfAuth
           path="/login"
-          render={
-            props => (
-              <Login
-                {...props}
-                setAuthUser={this.setAuthUser}
-                loginUser={this.props.authService.loginUser}
-              />
-            )
-          }
+          component={Login}
+          props={{
+            setAuthUser: this.setAuthUser,
+            loginUser: this.props.authService.loginUser
+          }}
+          isAuthenticated={this.state.authUser !== null}
         />
-        <Route
-          exact
+        
+        <RedirectIfAuth
           path="/signup"
-          render={
-            props => (
-              <SignUp 
-                {...props} 
-                registerUser={this.props.authService.registerUser}
-                setAuthUser={this.setAuthUser}
-              />
-            )
-          }
+          component={Login}
+          props={{
+            registerUser: this.props.authService.registerUser,
+            setAuthUser: this.setAuthUser
+          }}
+          isAuthenticated={this.state.authUser !== null}
         />
+        
         <Route
           exact
           path="/article/:slug"

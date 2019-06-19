@@ -17,18 +17,24 @@ const Navbar = ({ authUser }) => ((
           <li className="nav-item">
             <Link className="nav-link" to="/">Home</Link>
           </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/articles/create">Write new article</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/">Hey {authUser && authUser.user.name}!
-              <i className="fa fa-caret-down" />
-            </Link>
-            <div className="nav-submenu">
-              <Link className="nav-link" to="/">My articles</Link>
-              <Link className="nav-link" to="/">Logout</Link>
-            </div>
-          </li>
+          {
+            authUser &&
+            <li className="nav-item">
+              <Link className="nav-link" to="/articles/create">Write new article</Link>
+            </li>
+          }
+          {
+            authUser &&
+            <li className="nav-item">
+              <Link className="nav-link" to="/">Hey {authUser && authUser.user.name}!
+                <i className="fa fa-caret-down" />
+              </Link>
+              <div className="nav-submenu">
+                <Link className="nav-link" to="/">My articles</Link>
+                <Link className="nav-link" to="/">Logout</Link>
+              </div>
+            </li>
+          }
           {
             !authUser &&
             <li className="nav-item">
