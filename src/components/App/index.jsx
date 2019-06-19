@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Auth from '../Auth'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
 import SignUp from '../SignUp'
@@ -104,19 +105,15 @@ class App extends React.Component {
             )
           }
         />
-        <Route
-          exact
+        <Auth
           path="/articles/create"
-          render={
-            props => (
-              <CreateArticle 
-                {...props}
-                getArticleCategories={this.props.articlesService.getArticleCategories}
-                createArticle={this.props.articlesService.createArticle}
-                token={this.state.authUser.token}
-              />
-            )
-          } 
+          component={CreateArticle}
+          props={{
+            getArticleCategories: this.props.articlesService.getArticleCategories,
+            createArticle: this.props.articlesService.createArticle,
+            token: this.state.authUser ? this.state.authUser.token : null
+          }}
+          isAuthenticated={this.state.authUser !== null}
         />
         {
           location.pathname !== '/login' && location.pathname !== '/signup' &&
