@@ -30,7 +30,7 @@ const Navbar = ({ authUser }) => ((
                 <i className="fa fa-caret-down" />
               </Link>
               <div className="nav-submenu">
-                <Link className="nav-link" to="/">My articles</Link>
+                <Link className="nav-link" to="/user/articles">My articles</Link>
                 <Link className="nav-link" to="/">Logout</Link>
               </div>
             </li>

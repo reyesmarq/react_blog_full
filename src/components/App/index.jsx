@@ -11,6 +11,7 @@ import Login from '../Login'
 import SingleArticle from '../SingleArticle'
 import CreateArticle from '../CreateArticle'
 import { Route } from 'react-router-dom'
+import UserArticles from '../UserArticles'
 
 class App extends React.Component {
   constructor() {
@@ -101,6 +102,7 @@ class App extends React.Component {
             )
           }
         />
+
         <Auth
           path="/articles/create"
           component={CreateArticle}
@@ -111,6 +113,18 @@ class App extends React.Component {
           }}
           isAuthenticated={this.state.authUser !== null}
         />
+
+        <Auth
+          path="/user/articles"
+          component={UserArticles}
+          props={{
+            getUserArticles: this.props.articlesService.getUserArticles,
+            setArticles: this.setArticles,
+            token: this.state.authUser ? this.state.authUser.token : null
+          }}
+          isAuthenticated={this.state.authUser !== null}
+        />
+
         {
           location.pathname !== '/login' && location.pathname !== '/signup' &&
           <Footer />

@@ -9,6 +9,16 @@ export default class ArticlesService {
     return response.data.data
   }
 
+  async getUserArticles(token, url = `${config.apiUrlL}/user/articles`) {
+    const response = await Axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    return response.data.data
+  }
+
   async getArticle(slug) {
     const response = await Axios.get(`${config.apiUrlL}/article/${slug}`)
 
