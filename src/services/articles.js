@@ -19,6 +19,17 @@ export default class ArticlesService {
     return response.data.data
   }
 
+  async deleteArticle(id, token) {
+    await Axios.delete(`${config.apiUrlL}/articles/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    // return true if the response was successfully
+    return true
+  }
+
   async getArticle(slug) {
     const response = await Axios.get(`${config.apiUrlL}/article/${slug}`)
 
