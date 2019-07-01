@@ -26,6 +26,10 @@ class UserArticles extends React.Component {
     this.props.setArticles(articles.data)
   }
 
+  editArticle = (article) => {
+    this.props.history.push(`/article/edit/${article.slug}`)
+  }
+
   deleteArticle = async (id, token) => {
     await this.props.deleteArticle(id, this.props.token)
 
@@ -46,6 +50,7 @@ class UserArticles extends React.Component {
         prevUrl={this.state.articles.prev_page_url}
         handlePagination={this.handlePagination}
         deleteArticle={this.deleteArticle}
+        editArticle={this.editArticle}
       />
     )
   }

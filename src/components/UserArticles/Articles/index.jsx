@@ -3,7 +3,7 @@ import Banner from '../../Banner'
 import Article from '../../Article'
 import { Link } from 'react-router-dom'
 
-const Articles = ({ articles, handlePagination, nextUrl, prevUrl, deleteArticle }) => ((
+const Articles = ({ articles, handlePagination, nextUrl, prevUrl, deleteArticle, editArticle }) => ((
   <div>
 
     <Banner
@@ -15,17 +15,14 @@ const Articles = ({ articles, handlePagination, nextUrl, prevUrl, deleteArticle 
     <main className="main-content bg-gray">
       <div className="row">
         <div className="col-12 col-lg-6 offset-lg-3">
+
           {
             articles && articles.map(article => (
               <div key={article.id}>
                 <Article article={article} />
                 <div className="text-center">
-                  <button
-                    className="btn btn-danger"
-                    onClick={ () => deleteArticle(article.id) }
-                  >
-                    Delete article
-                  </button>
+                  <button className="btn btn-info mr-5" onClick={ () => editArticle(article) }>Edit article</button>
+                  <button className="btn btn-danger" onClick={ () => deleteArticle(article.id) }>Delete article</button>
                 </div>
                 <hr />
               </div>
