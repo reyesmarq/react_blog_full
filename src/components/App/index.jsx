@@ -110,6 +110,20 @@ class App extends React.Component {
           }
         />
 
+        <Route
+          exact
+          path="/user/article/:slug"
+          render={
+            props => (
+              <SingleArticle
+                {...props}
+                getArticle={this.props.articlesService.getArticle}
+                articles={this.state.articles}
+              />
+            )
+          }
+        />
+
         <Auth
           path="/articles/create"
           component={CreateArticle}
