@@ -47,6 +47,22 @@ class CreateArticle extends React.Component {
       this.setState({ errors })
     }
   }
+
+  updateArticle = async (event) => {
+    event.preventDefault()
+    try {
+      await this.props.updateArticle({
+        title: this.state.title,
+        image: this.state.image,
+        content: this.state.content,
+        category: this.state. category,
+      }, this.state.article, this.props.token)
+
+      this.props.history.push('/')
+    } catch (errors) {
+      this.setState({ errors })
+    }
+  }
   
   handleInputChange = event => {
     this.setState({
@@ -66,6 +82,7 @@ class CreateArticle extends React.Component {
         title={this.state.title}
         content={this.state.content}
         category={this.state.category}
+        updateArticle={this.updateArticle}
       />
     )
   }
