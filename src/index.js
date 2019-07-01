@@ -7,13 +7,14 @@ import App from './components/App'
 
 import AuthService from './services/auth'
 import ArticlesService from './services/articles'
-
+import NotificationsService from './services/notifications'
 
 
 const Main = withRouter(props => ((
   <App
     authService={ new AuthService() }
     articlesService={ new ArticlesService() }
+    notyService={ new NotificationsService() }
     {...props}
   />
 )))
