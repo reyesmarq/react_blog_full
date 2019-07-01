@@ -1,8 +1,11 @@
 import React from 'react'
-import Banner from '../../Banner'
 import PropTypes from 'prop-types'
+import { Editor } from 'react-draft-wysiwyg'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors, editing, article, title, category, content, updateArticle }) => ((
+import Banner from '../../Banner'
+
+const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors, editing, article, title, category, content, updateArticle, handleEditorState }) => ((
   <div>
     <Banner
       backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
@@ -57,13 +60,9 @@ const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors
                   </div>
                 </div>
                 <div className="form-group">
-                  <textarea
-                    className="form-control form-control-lg"
-                    rows={4}
-                    placeholder="Content"
-                    name="content"
-                    value={content}
-                    onChange={handleInputChange}
+                  <Editor
+                    editorState={content}
+                    onEditorStateChange={handleEditorState}
                   />
                 </div>
                 <div className="text-center">

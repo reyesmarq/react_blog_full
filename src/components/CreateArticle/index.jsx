@@ -1,5 +1,7 @@
 import React from 'react'
 import CreateArticleForm from './CreateArticleForm'
+import { EditorState, convertToRaw } from 'draft-js'
+import draftToHtml from 'draftjs-to-html'
 
 class CreateArticle extends React.Component {
   constructor() {
@@ -8,7 +10,7 @@ class CreateArticle extends React.Component {
     this.state = {
       title: '',
       image: null,
-      content: '',
+      content: EditorState.createEmpty(),
       category: null,
       errors: [],
       categories: [],
@@ -43,11 +45,20 @@ class CreateArticle extends React.Component {
     }
   }
 
+  handleEditorState = (editorState) => {
+    this.setState({ content: editorState })
+  }
+
   handleSubmit = async event => {
     event.preventDefault()
 
     try {
-      const article = await this.props.createArticle(this.state, this.props.token)
+      const article = await this.props.createArticle({
+        title: this.state.title,
+        content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
+        category: this.state.category,
+        image: this.state.image
+      }, this.props.token)
       this.props.notyService.success('Article created successfully')
       this.props.history.push('/')
     } catch (errors) {
@@ -62,7 +73,7 @@ class CreateArticle extends React.Component {
       await this.props.updateArticle({
         title: this.state.title,
         image: this.state.image,
-        content: this.state.content,
+        content: draftToHtml(convertToRaw(this.state.content.getCurrentContent())),
         category: this.state. category,
       }, this.state.article, this.props.token)
 
@@ -93,6 +104,7 @@ class CreateArticle extends React.Component {
         content={this.state.content}
         category={this.state.category}
         updateArticle={this.updateArticle}
+        handleEditorState={this.handleEditorState}
       />
     )
   }
