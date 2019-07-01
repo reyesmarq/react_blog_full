@@ -2,11 +2,11 @@ import React from 'react'
 import Banner from '../../Banner'
 import PropTypes from 'prop-types'
 
-const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors }) => ((
+const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors, editing, article, title, category, content }) => ((
   <div>
     <Banner
       backgroundImage={`url(${process.env.PUBLIC_URL}/assets/img/bg-laptop.jpg)`}
-      title="Write an article"
+      title={editing ? `Editing article: ${article.title}` : 'Write an article'}
     />
     
     <main className="main-content">
@@ -36,6 +36,7 @@ const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors
                       type="text"
                       name="title"
                       placeholder="Title"
+                      value={title}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -43,6 +44,7 @@ const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors
                     <select
                       name="category"
                       className="form-control form-control-lg"
+                      value={category}
                       onChange={handleInputChange}
                     >
                       <option value>Select category</option>
@@ -60,7 +62,7 @@ const CreateArticleForm = ({ handleInputChange, categories, handleSubmit, errors
                     rows={4}
                     placeholder="Content"
                     name="content"
-                    defaultValue=""
+                    value={content}
                     onChange={handleInputChange}
                   />
                 </div>
